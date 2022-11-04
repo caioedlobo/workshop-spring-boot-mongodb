@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
-    // com issso, um objeto UserRepository vai poder fazer várias operações básicas, salvar, deletar, atualizar. Já está embutio no MongoRepository
+    // com isso, um objeto UserRepository vai poder fazer várias operações básicas, salvar, deletar, atualizar. Já está embutido no MongoRepository
 }
