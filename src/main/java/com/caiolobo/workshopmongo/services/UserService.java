@@ -37,4 +37,16 @@ public class UserService {
         repository.deleteById(id);
     }
 
+    public User update(User obj){
+        User newObj = repository.findById(obj.getId()).orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado"));
+        updateData(newObj, obj);
+        return repository.save(newObj);
+    }
+
+    private void updateData(User newObj, User obj) {
+        newObj.setId(obj.getId());
+        newObj.setName(obj.getName());
+        newObj.setEmail(obj.getEmail());
+    }
+
 }
