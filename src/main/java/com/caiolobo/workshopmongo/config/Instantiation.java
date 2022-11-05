@@ -2,6 +2,7 @@ package com.caiolobo.workshopmongo.config;
 
 import com.caiolobo.workshopmongo.domain.Post;
 import com.caiolobo.workshopmongo.domain.User;
+import com.caiolobo.workshopmongo.dto.AuthorDTO;
 import com.caiolobo.workshopmongo.repository.PostRepository;
 import com.caiolobo.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,12 @@ public class Instantiation implements CommandLineRunner {
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
-        Post post1 = new Post(null, sdf.parse("21/03/2022"), "Partiu viagem", "Vou viajar para Sao Paulo. Abraços!", maria);
-        Post post2 = new Post(null, sdf.parse("23/03/2022"), "Bom dia", "Dormi bem hoje!", maria);
+        userRepository.saveAll(Arrays.asList(maria, alex, bob)); // salva os usuários para depois associá-los a um post, senão o id dá null
 
-        userRepository.saveAll(Arrays.asList(maria, alex, bob));
+        Post post1 = new Post(null, sdf.parse("21/03/2022"), "Partiu viagem", "Vou viajar para Sao Paulo. Abraços!", new AuthorDTO(maria));
+        Post post2 = new Post(null, sdf.parse("23/03/2022"), "Bom dia", "Dormi bem hoje!", new AuthorDTO(maria));
+
+
         postRepository.saveAll(Arrays.asList(post1, post2));
     }
 }
