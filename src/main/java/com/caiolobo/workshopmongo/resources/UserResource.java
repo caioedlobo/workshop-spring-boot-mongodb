@@ -1,5 +1,6 @@
 package com.caiolobo.workshopmongo.resources;
 
+import com.caiolobo.workshopmongo.domain.Post;
 import com.caiolobo.workshopmongo.domain.User;
 import com.caiolobo.workshopmongo.dto.UserDTO;
 import com.caiolobo.workshopmongo.services.UserService;
@@ -55,5 +56,13 @@ public class UserResource {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+    }
+
+
 
 }
