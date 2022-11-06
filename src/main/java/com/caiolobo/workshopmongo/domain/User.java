@@ -1,10 +1,13 @@
 package com.caiolobo.workshopmongo.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Document(collection = "user")// para dizer que é uma coleção do MongoDB  colelction opcional ele mapeia pelo nome da classe
@@ -16,6 +19,10 @@ public class User implements Serializable {
     private String id;
     private String name;
     private String email;
+    //Usa DBRef para dizer que eles vãos er referenciados em outra entidade(Document)
+    @DBRef(lazy = true)     //lazy porque nao quer carregar automaticamente os posts assim que carregar o usuário do banco de dados
+    // só serão carregados se explicitamente acessá-los
+    private List<Post> posts = new ArrayList<>();
 
     public User() {
     }
@@ -48,6 +55,10 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
     }
 
     @Override
