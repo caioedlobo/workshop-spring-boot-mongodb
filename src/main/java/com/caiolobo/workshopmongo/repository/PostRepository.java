@@ -1,8 +1,8 @@
 package com.caiolobo.workshopmongo.repository;
 
 import com.caiolobo.workshopmongo.domain.Post;
-import com.caiolobo.workshopmongo.domain.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,4 +13,9 @@ public interface PostRepository extends MongoRepository<Post, String> {
 
     //IgnoreCase para não diferenciar se a letra for maiúsucla ou minúscula
     List<Post> findByTitleContainingIgnoreCase(String text);      //isso já faz com que o Spring Data monte a consulta. Usa query methods
+
+    // NÃO ESTÁ FUNCIONANDO ABAIXO
+
+   // @Query("{ 'title': { $regex ?0, $options: 'i' } }")        // ?0 primeiro parâmetro do método, nesse caso é o text / i no options para ignorar minúsculas e maiúsculas
+    //List<Post> searchTitle(String text);
 }
